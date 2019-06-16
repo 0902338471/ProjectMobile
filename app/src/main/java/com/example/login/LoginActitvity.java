@@ -45,15 +45,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LoginActitvity extends AppCompatActivity implements View.OnClickListener {
-
     CallbackManager callbackManager;
-
+    //
+    private FirebaseDatabase mFirebaseDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference myRef;
+    //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
     }
+    //
 
+    //
 
     TextInputEditText nusername;
     TextInputEditText npassword;
@@ -168,12 +174,29 @@ public class LoginActitvity extends AppCompatActivity implements View.OnClickLis
                                 Toast.makeText(LoginActitvity.this,"Failed to sign in",Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                Toast.makeText(LoginActitvity.this,"Welcome",Toast.LENGTH_SHORT).show();
+                                Intent i=new Intent(LoginActitvity.this,ListFood.class);
+                                String userID=task.getResult().getUser().getUid();
+                                String aemail = nusername.getText().toString();
+                                String pass=npassword.getText().toString();
+//                                mFirebaseDatabase = FirebaseDatabase.getInstance();
+//                                myRef = mFirebaseDatabase.getReference();
+//                                if(!aemail.equals("")&& !pass.equals("")){
+//                                    UserInformation userInformation = new UserInformation(aemail,pass);
+//                                    Log.d("sa",myRef.toString());
+//                                    myRef.child("Users/").child(userID+"/").setValue(userInformation);
+//                                    nusername.setText("");
+//                                    npassword.setText("");
+//                                }
+                                i.putExtra("nusername",aemail);
+                                i.putExtra("password",pass);
+                                i.putExtra("Uid",userID);
+                                startActivity(i);
                             }
 
                         }
                     });
                 }
+
             }
         });
 

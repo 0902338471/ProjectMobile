@@ -70,6 +70,7 @@ public class Signup extends AppCompatActivity {
                                     }
                                     else{
                                         Toast.makeText(Signup.this,"Sign up successful",Toast.LENGTH_SHORT).show();
+                                        //put add note activity intent here
                                     }
                                 }
                             });
@@ -81,7 +82,7 @@ public class Signup extends AppCompatActivity {
         clicksignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(Signup.this,MainActivity.class);
+                Intent intent =new Intent(Signup.this, LoginActitvity.class);
                 startActivity(intent);
             }
         });
